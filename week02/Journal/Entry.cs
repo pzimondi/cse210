@@ -2,38 +2,33 @@ using System;
 
 public class Entry
 {
-    private string _date;
-    private string _prompt;
-    private string _response;
+    public string _date;
+    public string _promptText;
+    public string _entryText;
 
-    // Constructor
-    public Entry(string date, string prompt, string response)
-    {
-        _date = date;
-        _prompt = prompt;
-        _response = response;
-    }
-
-    // Display the entry
     public void Display()
     {
-        Console.WriteLine("Date: " + _date);
-        Console.WriteLine("Prompt: " + _prompt);
-        Console.WriteLine("Response: " + _response);
-        Console.WriteLine(new string('-', 40));
+        Console.WriteLine($"\nDate: {_date}");
+        Console.WriteLine($"Prompt: {_promptText}");
+        Console.WriteLine($"Entry: {_entryText}");
     }
 
-    // Convert entry to string for saving
+    // Helper to format entry for saving
     public string ToFileString()
     {
-        return $"{_date}|{_prompt}|{_response}";
+        return $"{_date}|{_promptText}|{_entryText}";
     }
 
-    // Create Entry from a file line
+    // Helper to load from file
     public static Entry FromFileString(string line)
     {
         string[] parts = line.Split('|');
         if (parts.Length < 3) return null;
-        return new Entry(parts[0], parts[1], parts[2]);
+        return new Entry
+        {
+            _date = parts[0],
+            _promptText = parts[1],
+            _entryText = parts[2]
+        };
     }
 }

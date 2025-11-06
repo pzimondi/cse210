@@ -4,61 +4,59 @@ using System.IO;
 
 public class Journal
 {
-    private List<Entry> _entries;
+    public List<Entry> _entries = new List<Entry>();
 
-    public Journal()
+    public void AddEntry(Entry newEntry)
     {
-        _entries = new List<Entry>();
+        _entries.Add(newEntry);
+        Console.WriteLine("New entry successfully added.");
     }
 
-    public void AddEntry(Entry entry)
-    {
-        _entries.Add(entry);
-        Console.WriteLine("Your entry has been added to the journal.");
-    }
-
-    public void DisplayAllEntries()
+    public void DisplayAll()
     {
         if (_entries.Count == 0)
         {
-            Console.WriteLine("The journal is currently empty. Consider writing something today.");
+            Console.WriteLine("Your journal is empty. Try writing something today.");
+            return;
         }
-        else
+
+        foreach (Entry entry in _entries)
         {
-            foreach (var entry in _entries)
-            {
-                entry.Display();
-            }
+            entry.Display();
         }
     }
 
-    public void SaveToFile(string filename)
+    public void SaveToFile(string file)
     {
-        using (StreamWriter writer = new StreamWriter(filename))
+        using (StreamWriter outputFile = new StreamWriter(file))
         {
-            foreach (var entry in _entries)
+            foreach (Entry entry in _entries)
             {
-                writer.WriteLine(entry.ToFileString());
+                outputFile.WriteLine(entry.ToFileString());
             }
         }
-        Console.WriteLine($"Journal successfully saved to '{filename}'.");
+        Console.WriteLine($"Journal saved to {file}");
     }
 
-    public void LoadFromFile(string filename)
+    public void LoadFromFile(string file)
     {
-        if (!File.Exists(filename))
+        if (!File.Exists(file))
         {
-            Console.WriteLine("File not found. Please check the filename and try again.");
+            Console.WriteLine("File not found. Please check the name and try again.");
             return;
         }
 
         _entries.Clear();
-        string[] lines = File.ReadAllLines(filename);
-        foreach (var line in lines)
+        string[] lines = File.ReadAllLines(file);
+
+        foreach (string line in lines)
         {
             Entry entry = Entry.FromFileString(line);
-            if (entry != null) _entries.Add(entry);
+            if (entry != null)
+            {
+                _entries.Add(entry);
+            }
         }
-        Console.WriteLine($"Journal successfully loaded from '{filename}'.");
+        Console.WriteLine($"Journal loaded from {file}");
     }
 }
