@@ -1,17 +1,3 @@
-// Program.cs
-// 
-// CREATIVITY AND EXCEEDING REQUIREMENTS:
-// 1. Enhanced Animation System: Created multiple animation types (spinner, countdown, breathing pulse)
-//    that are more visually engaging than basic spinners
-// 2. Activity History Tracking: Keeps track of all completed activities in the current session
-//    and displays a summary when the user quits
-// 3. Smart Prompt System: Ensures no reflection questions or prompts are repeated within a single
-//    activity session until all have been used
-// 4. Improved User Experience: Added color-coded messages (simulated with visual separators),
-//    better formatting, and more encouraging feedback throughout
-// 5. Input Validation: Robust error handling for user inputs to prevent crashes
-//
-
 using System;
 using System.Collections.Generic;
 
